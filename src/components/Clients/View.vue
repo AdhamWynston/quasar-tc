@@ -3,30 +3,10 @@
     <div class="row">
       <div class="col-auto">
       <h5>
-       Visualização
-        <q-fab
-                color="dark"
-                icon="keyboard_arrow_right"
-                active-icon="close"
-                direction="right"
-        >
-          <q-tooltip
-                  slot="tooltip"
-                  anchor="center left"
-                  self="center right"
-                  :offset="[20, 0]"
-          >
-          </q-tooltip>
-          <q-fab-action @click="back()" icon="arrow_back">
-            <q-tooltip anchor="center left" self="center right" :offset="[20, 0]">Voltar</q-tooltip>
-          </q-fab-action>
-          <q-fab-action color="orange" @click="openModal('/clients/' + client.id + '/edit')" icon="ion-edit">
-            <q-tooltip anchor="center left" self="center right" :offset="[20, 0]">Editar</q-tooltip>
-          </q-fab-action>
-          <q-fab-action  color="red" @click="goDesactiveClients()" icon="ion-locked">
-            <q-tooltip anchor="center left" self="center right" :offset="[20, 0]">Desativar</q-tooltip>
-          </q-fab-action>
-        </q-fab>
+       Informações do Cliente
+        <q-btn @click="openModal('/clients/' + client.id + '/edit')" round color="orange">
+          <q-icon name="mode_edit" />
+        </q-btn>
       </h5>
       </div>
     </div>

@@ -16,11 +16,12 @@ import Quasar from 'quasar'
 import router from './router'
 import VuexStore from './vuex/store'
 import moment from 'moment'
-import VeeValidate, {Validator} from 'vee-validate'
-import br from 'vee-validate/dist/locale/pt_BR'
+// import VeeValidate, {Validator} from 'vee-validate'
+// import br from 'vee-validate/dist/locale/pt_BR'
+import Vuelidate from 'vuelidate'
 
-Validator.addLocale(br)
-Vue.use(VeeValidate, {
+// Validator.addLocale(br)
+Vue.use(Vuelidate, {
   locale: 'pt_BR'
 })
 Vue.config.productionTip = false
