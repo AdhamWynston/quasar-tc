@@ -27,7 +27,8 @@ export default new VueRouter({
       component: load('Index'),
       children: [
         { path: '/', component: load('Charts') },
-        { path: '/clients', component: load('Clients/List') }
+        { path: '/clients', component: load('Clients/List') },
+        { path: '/clients/:id', component: load('Clients/View') }
       ]
     },
     // Always leave this last one

@@ -61,7 +61,7 @@
           rowHeight: '50px',
           responsive: true,
           pagination: {
-            rowsPerPage: 15,
+            rowsPerPage: 5,
             options: [5, 10, 15, 30, 50, 500]
           },
           messages: {
@@ -74,7 +74,7 @@
             allCols: 'Todas as colunas',
             clear: 'limpar',
             all: 'Todos',
-            rows: 'Registros',
+            rows: 'Registros por página',
             selected: {
               singular: 'item selecionado.',
               width: '20px'

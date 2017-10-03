@@ -1,5 +1,7 @@
 <template>
   <div>
+  <div class="layout-view">
+  <div class="layout-padding">
   <h4>Gerenciamento</h4>
   <div class="row">
   <div class="col-8">
@@ -7,27 +9,25 @@
     <h5> Lorem ipsum</h5>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur deserunt nulla placeat! Assumenda cumque deserunt dignissimos minima nemo quae soluta tempore veritatis. Ab accusamus, blanditiis consequuntur delectus iste sint? Dolore?</p>
   </div>
-    <div class="col-4">
       <donut-chart
               id="donut"
               :data="donutData"
               colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
               resize="true"
       ></donut-chart>
-    </div>
-    <div class="col-12">
       <bar-chart
               id="bar"
               :data="barData"
               :xkey="'year'"
               :ykeys="barYKeys"
               :labels="labels"
-              :bar-colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
-              :grid="true"
-              :grid-text-weight="'bold'"
-              :resize="true"
+              bar-colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
+              grid="true"
+              grid-text-weight="'bold'"
+              resize="true"
       ></bar-chart>
     </div>
+  </div>
   </div>
   </div>
 </template>
