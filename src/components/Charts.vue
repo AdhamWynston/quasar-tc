@@ -9,23 +9,23 @@
     <h5> Lorem ipsum</h5>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur deserunt nulla placeat! Assumenda cumque deserunt dignissimos minima nemo quae soluta tempore veritatis. Ab accusamus, blanditiis consequuntur delectus iste sint? Dolore?</p>
   </div>
-      <donut-chart
-              id="donut"
-              :data="donutData"
-              colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
-              resize="true"
-      ></donut-chart>
-      <bar-chart
-              id="bar"
-              :data="barData"
-              :xkey="'year'"
-              :ykeys="barYKeys"
-              :labels="labels"
-              bar-colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'
-              grid="true"
-              grid-text-weight="'bold'"
-              resize="true"
-      ></bar-chart>
+      <!--<donut-chart-->
+              <!--id="donut"-->
+              <!--:data="donutData"-->
+              <!--colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'-->
+              <!--resize="true">-->
+      <!--</donut-chart>-->
+      <!--<bar-chart-->
+              <!--id="bar"-->
+              <!--:data="barData"-->
+              <!--:xkey="'year'"-->
+              <!--:ykeys="barYKeys"-->
+              <!--:labels="labels"-->
+              <!--bar-colors='[ "#FF6384", "#36A2EB", "#FFCE56" ]'-->
+              <!--grid="true"-->
+              <!--grid-text-weight="'bold'"-->
+              <!--resize="true"-->
+      <!--&gt;</bar-chart>-->
     </div>
   </div>
   </div>
@@ -53,6 +53,8 @@
         barYKeys: ['and', 'ios', 'win'],
         labels: ['android', 'ios', 'windows']
       }
+    },
+    created () {
     },
     components: {
       DonutChart, BarChart

@@ -26,9 +26,9 @@ export default new VueRouter({
       path: '/',
       component: load('Index'),
       children: [
-        { path: '/', component: load('Charts') },
-        { path: '/clients', component: load('Clients/List') },
-        { path: '/clients/:id', component: load('Clients/View') }
+        { path: '/', component: load('Charts'), name: 'index' },
+        { path: '/clients', component: load('Clients/List'), name: 'Todos os clientes' },
+        { path: '/clients/:id', component: load('Clients/View'), name: 'Visualizando Cliente' }
       ]
     },
     // Always leave this last one
