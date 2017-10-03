@@ -16,7 +16,13 @@ import Quasar from 'quasar'
 import router from './router'
 import VuexStore from './vuex/store'
 import moment from 'moment'
+import VeeValidate, {Validator} from 'vee-validate'
+import br from 'vee-validate/dist/locale/pt_BR'
 
+Validator.addLocale(br)
+Vue.use(VeeValidate, {
+  locale: 'pt_BR'
+})
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 Vue.use(Vuex)

@@ -1,7 +1,7 @@
 <template>
-  <div class="layout-padding">
+  <div class="layout-padding justify-center">
     <div class="row">
-      <div class="col-12">
+      <div class="col-auto">
       <h5>
        Visualização
         <q-fab
@@ -20,7 +20,7 @@
           <q-fab-action @click="back()" icon="arrow_back">
             <q-tooltip anchor="center left" self="center right" :offset="[20, 0]">Voltar</q-tooltip>
           </q-fab-action>
-          <q-fab-action color="orange" @click="goEditClients()" icon="ion-edit">
+          <q-fab-action color="orange" @click="openModal('/clients/' + client.id + '/edit')" icon="ion-edit">
             <q-tooltip anchor="center left" self="center right" :offset="[20, 0]">Editar</q-tooltip>
           </q-fab-action>
           <q-fab-action  color="red" @click="goDesactiveClients()" icon="ion-locked">
@@ -30,10 +30,15 @@
       </h5>
       </div>
     </div>
+    <q-modal ref="basicModal" position="bottom" :content-css="{minWindth: '800px', minHeight: '100px', padding: '20px'}" @close="closeModal()">
+    <router-view />
+      <hr>
+      <q-btn class="small" color="blue" @click="$refs.basicModal.close()">Fechar</q-btn>
+    </q-modal>
     <div class="row">
       <div class="col-xs-12 col-sm-8 col-md-8">
     <q-list link>
-      <q-collapsible opened icon="perm_identity" label="Dados Pessoais">
+      <q-collapsible icon="perm_identity" label="Dados Pessoais">
         <div>
       <q-item>
         <q-item-main>
@@ -159,9 +164,13 @@
 </template>
 
 <script>
-import moment from 'moment'
+  /* eslint-disable indent */
+
+  import moment from 'moment'
 
 import {
+  QModal,
+  QModalLayout,
   QCheckbox,
   QRadio,
   QToggle,
@@ -195,6 +204,8 @@ import {
 export default {
   components: {
     QCheckbox,
+    QModal,
+    QModalLayout,
     QRadio,
     QToggle,
     QCollapsible,
@@ -246,6 +257,14 @@ export default {
     }
   },
   methods: {
+    openModal (url) {
+      this.$router.push(url)
+      this.$refs.basicModal.open()
+    },
+    closeModal () {
+      this.$router.push('/clients/' + this.client.id)
+    }
+  },
     back () {
       window.history.go(-1)
     },
@@ -257,8 +276,7 @@ export default {
       this.$router.push('/clients/1/edit')
     },
     goDesactiveClients () {
-      this.$router.push('/clients/1/remove')
-    }
+    this.$router.push('/clients/1/remove')
   }
 }
 </script>

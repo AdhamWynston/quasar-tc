@@ -28,6 +28,15 @@ export default {
             data: res.data
           })
         })
+    },
+    clientInsert (context, data) {
+      return axios.post('http://127.0.0.1:8000/api/clients', data)
+    },
+    clientUpdate (context, config) {
+      return axios.put('http://127.0.0.1:8000/api/clients/' + config.id, config.data)
+    },
+    clientDesactive (context, id) {
+      return axios.delete('http://127.0.0.1:8000/api/clients/' + id)
     }
   }
 }

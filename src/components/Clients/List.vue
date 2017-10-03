@@ -49,7 +49,7 @@
     data () {
       return {
         config: {
-          title: 'Clientes',
+          title: 'Listagem dos Clientes',
           columnPicker: true,
           leftStickyColumns: 0,
           rightStickyColumns: 2,
