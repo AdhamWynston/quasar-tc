@@ -16,6 +16,7 @@ import Quasar from 'quasar'
 import router from './router'
 import VuexStore from './vuex/store'
 import moment from 'moment'
+import VueMask from 'v-mask'
 // import VeeValidate, {Validator} from 'vee-validate'
 // import br from 'vee-validate/dist/locale/pt_BR'
 import Vuelidate from 'vuelidate'
@@ -27,6 +28,7 @@ Vue.use(Vuelidate, {
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 Vue.use(Vuex)
+Vue.use(VueMask)
 axios.defaults.baseURL = process.env.SERVER
 
 axios.interceptors.request.use((config) => {
