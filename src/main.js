@@ -11,12 +11,13 @@ require(`quasar/dist/quasar.${__THEME}.css`)
 // require(`quasar/dist/quasar.ie.${__THEME}.css`)
 import Vuex from 'vuex'
 import Vue from 'vue'
-import axios from 'axios'
 import Quasar from 'quasar'
 import router from './router'
 import VuexStore from './vuex/store'
 import moment from 'moment'
-import VueMask from 'v-mask'
+import VueResource from 'vue-resource'
+import Auth from './Packages/Auth'
+import JwtToken from './services/jwt-token'
 // import VeeValidate, {Validator} from 'vee-validate'
 // import br from 'vee-validate/dist/locale/pt_BR'
 import Vuelidate from 'vuelidate'
@@ -28,17 +29,39 @@ Vue.use(Vuelidate, {
 Vue.config.productionTip = false
 Vue.use(Quasar) // Install Quasar Framework
 Vue.use(Vuex)
-Vue.use(VueMask)
-axios.defaults.baseURL = process.env.SERVER
+Vue.use(Auth)
+Vue.use(VueResource)
+Vue.http.options.root = process.env.SERVER
 
-axios.interceptors.request.use((config) => {
-  config.headers.common['Authorization'] = 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc3YjNiZjdjM2ZlMmNhYWVkM2ZkMTc0NWU0ODU4MTAwMDRkMWYzM2IyYjEwMzMyZmNhZTk2Y2Y4YzYxZDRjMmQ4MTRlNDhhOTViMTdhYTc2In0.eyJhdWQiOiIyIiwianRpIjoiNzdiM2JmN2MzZmUyY2FhZWQzZmQxNzQ1ZTQ4NTgxMDAwNGQxZjMzYjJiMTAzMzJmY2FlOTZjZjhjNjFkNGMyZDgxNGU0OGE5NWIxN2FhNzYiLCJpYXQiOjE1MDY2MTQ3ODksIm5iZiI6MTUwNjYxNDc4OSwiZXhwIjoxNTM4MTUwNzg5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.FTbu81mJrmfT7BDqFXj3z_hMPGmalL1ntKl1osBLu4RC_iEO59kCXqMOKOqgFLParW1tEEa4oG48yWW4ZqY50I_A4nwiZy4J_Itx1T6hdgOruzVeoeGXsuVwJCX3G3qHyWb4ssy8bYGoru0VHYw7pPIIvQElXxY8I0nYtrjn2HLpEvUFMI2DmkVc-NeAFr5zeUqwgD9X8KKU51LnOgi5LHtJxJQXEUX-pSne9PN0boWJqExFywLjviQoOdzvXmitqVjAXcYMXY_w887t0NUrXf8bq5j-zd5eZ79UQDFFHxx1hpKwpJtavSlmfqZzoiEhjzzJ9YBa5Kt-jnDViJw_CvxNDRkMgGUZca7ta9p0kQRwrRzs6J8yoCXm--KbdGlpoFBiZAmIGWwq4nJ0q05QkQAwXCeDroWevTGq48-UaZcc9Jts2ZBy1c9wujQvAvWeFofjhQXdnUOtGw8K9NKVMnAQzA1Of-HSq86xQQw3TavPCxTpA3BqSozceR2zglg3IZ2_S7PzJ8_usvDn9OLiWMljgTZFpTygW4y1FUjknnFwBAmwkvC5upuKjq5kfHajYm4uz0Gbbv7dcopoBlh9mCfVTgbhz9nxEzNca8s9QMzkpcz_o3apLwspnFts4QuRsh_MLdc3PrZkh6O1xnKgPzK0u6BLUTcZdyHkp5DtHsM'
-  return config
-}, function (error) {
-  // Do something with request error
-  return Promise.reject(error)
-})
 const store = new Vuex.Store(VuexStore)
+
+Vue.http.interceptors.push((request, next) => {
+  if (JwtToken.token) {
+    request.headers.set('Authorization', JwtToken.getAuthorizationHeader())
+  }
+  next()
+})
+Vue.http.interceptors.push((request, next) => {
+  next((response) => {
+    let authorization = response.headers.get('Authorization')
+    if (authorization) {
+      JwtToken.token = authorization.split(' ')[1]
+    }
+
+    switch (response.status) {
+      case 401:
+        store.commit('unauthenticated')
+        return router.push('/login')
+    }
+  })
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.auth && !store.state.auth.check) {
+    return router.push('/login')
+  }
+  next()
+})
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')
 }

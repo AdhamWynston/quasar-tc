@@ -7,7 +7,6 @@ function load (component) {
   // '@' is aliased to src/components
   return () => import(`@/${component}.vue`)
 }
-
 export default new VueRouter({
   /*
    * NOTE! VueRouter "history" mode DOESN'T works for Cordova builds,
@@ -26,8 +25,8 @@ export default new VueRouter({
       path: '/',
       component: load('Index'),
       children: [
-        { path: '/', component: load('Charts'), name: 'index' },
-        { path: '/clients', component: load('Clients/List'), name: 'Todos os clientes' },
+        { path: '/', component: load('Charts'), name: 'index', meta: {auth: true} },
+        { path: '/clients', component: load('Clients/List'), name: 'ClientsList', meta: {auth: true} },
         {
           path: '/clients/:id',
           component: load('Clients/View'),
@@ -38,6 +37,7 @@ export default new VueRouter({
         }
       ]
     },
+    { path: '/login', component: load('Auth/Login'), name: 'login' },
     // Always leave this last one
     { path: '*', component: load('Error404') } // Not found
   ]

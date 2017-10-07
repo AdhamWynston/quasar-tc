@@ -27,21 +27,27 @@
         <q-tabs slot="navigation" class="glossy" color="dark" v-if="!indexStore.hideTabs">
             <q-route-tab slot="title" icon="home" to="/" label="Home" />
             <q-route-tab slot="title" icon="ion-ios-people" to="/clients" label="Clientes" />
-            <q-route-tab slot="title" icon="supervisor_account" to="/users" label="Usuários" />
+            <template v-if="isAdministrator">
+                <q-route-tab slot="title" icon="supervisor_account" to="/users" label="Usuários" />
+            </template>
         </q-tabs>
         <div slot="left">
             <q-side-link item to="/" exact>
-                <q-item-side icon="home" />
+                <q-item-side  icon="home" />
                 <q-item-main label="Home" />
             </q-side-link>
             <q-side-link item to="/clients" exact>
-                <q-item-side icon="ion-ios-people" />
+                <q-item-side  icon="ion-ios-people" />
                 <q-item-main label="Clientes" />
             </q-side-link>
             <q-side-link item to="/users" exact>
-                <q-item-side icon="supervisor_account" />
+                <q-item-side  icon="supervisor_account" />
                 <q-item-main label="Usuários" />
             </q-side-link>
+            <q-item link @click="logout()">
+                <q-item-side  icon="ion-android-exit" />
+                <q-item-main label="Sair" />
+            </q-item>
         </div>
             <router-view />
     </q-layout>
@@ -50,7 +56,9 @@
 <script>
     /* eslint-disable indent */
     import indexStore from './index-store'
+    import authMixin from '../mixins/auth.mixin'
     import {
+        Loading,
         QSideLink,
         QLayout,
         QToolbar,
@@ -70,6 +78,7 @@
     export default {
         name: 'index',
         components: {
+            Loading,
             Ripple,
             QSideLink,
             QLayout,
@@ -85,14 +94,28 @@
             QItemSide,
             QItemMain
         },
+        mixins: [authMixin],
         data () {
           return {
             indexStore
           }
         },
       methods: {
+        closeLoading () {
+          setTimeout(Loading.hide, 600)
+        },
         back () {
           window.history.go(-1)
+        },
+        logout () {
+          Loading.show()
+          let goToLogin = () => {
+            this.closeLoading()
+            this.$router.push('/login')
+          }
+          this.$store.dispatch('logout')
+            .then(goToLogin)
+            .catch(goToLogin)
         }
       },
         computed: {

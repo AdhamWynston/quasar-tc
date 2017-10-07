@@ -10,7 +10,10 @@
       </h5>
       </div>
     </div>
-    <q-modal ref="basicModal" position="bottom" :content-css="{minWindth: '800px', minHeight: '100px', padding: '20px'}" @close="closeModal()">
+    <q-modal
+            ref="basicModal"
+            position="bottom"
+            :content-css="{minWindth: '1000px', minHeight: '100px', padding: '10px'}">
     <router-view />
       <hr>
       <q-btn class="small" color="blue" @click="$refs.basicModal.close()">Fechar</q-btn>
@@ -150,6 +153,9 @@
 
 import {
   QModal,
+  QStepper,
+  QStep,
+  QStepperNavigation,
   QModalLayout,
   QCheckbox,
   QRadio,
@@ -159,6 +165,7 @@ import {
   QItem,
   QItemSeparator,
   QCollapsible,
+  QInnerLoading,
   QItemSide,
   QItemMain,
   QItemTile,
@@ -190,9 +197,13 @@ export default {
     QToggle,
     QCollapsible,
     QList,
+    QStepper,
+    QStep,
+    QStepperNavigation,
     QItem,
     QItemSeparator,
     QItemTile,
+    QInnerLoading,
     QTooltip,
     QCard,
     QCardMedia,

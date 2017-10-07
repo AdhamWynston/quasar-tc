@@ -1,4 +1,5 @@
-import axios from 'axios'
+import 'vue-resource'
+import Vue from 'vue'
 
 export default {
   state: {
@@ -12,16 +13,16 @@ export default {
   },
   actions: {
     clientsList (context) {
-      return axios.get('http://127.0.0.1:8000/api/clients')
+      return Vue.http.get('http://127.0.0.1:8000/api/clients')
         .then((res) => {
           context.commit('update', {
             state: 'list',
-            data: res.data
+            data: res
           })
         })
     },
     clientsGet (context, id) {
-      return axios.get('http://127.0.0.1:8000/api/clients/' + id)
+      return Vue.http.get('http://127.0.0.1:8000/api/clients/' + id)
         .then((res) => {
           context.commit('update', {
             state: 'one',
@@ -30,13 +31,13 @@ export default {
         })
     },
     clientInsert (context, data) {
-      return axios.post('http://127.0.0.1:8000/api/clients', data)
+      return Vue.http.post('http://127.0.0.1:8000/api/clients', data)
     },
     clientUpdate (context, config) {
-      return axios.put('http://127.0.0.1:8000/api/clients/' + config.id, config.data)
+      return Vue.http.put('http://127.0.0.1:8000/api/clients/' + config.id, config.data)
     },
     clientDesactive (context, id) {
-      return axios.delete('http://127.0.0.1:8000/api/clients/' + id)
+      return Vue.http.delete('http://127.0.0.1:8000/api/clients/' + id)
     }
   }
 }
