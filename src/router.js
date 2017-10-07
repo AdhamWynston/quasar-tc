@@ -25,16 +25,17 @@ export default new VueRouter({
       path: '/',
       component: load('Index'),
       children: [
-        { path: '/', component: load('Charts'), name: 'index', meta: {auth: true} },
-        { path: '/clients', component: load('Clients/List'), name: 'ClientsList', meta: {auth: true} },
+        { path: '/', component: load('Charts'), name: 'index', meta: { auth: true } },
+        { path: '/clients', component: load('Clients/List'), name: 'clients.list', meta: { auth: true } },
         {
           path: '/clients/:id',
           component: load('Clients/View'),
-          name: 'Visualizando Cliente',
+          name: 'clients.view',
           children: [
-            { path: 'edit', component: load('Clients/Edit') }
+            { path: 'edit', component: load('Clients/Edit'), name: 'clients.edit', meta: { auth: true } }
           ]
-        }
+        },
+        { path: '/admin/users', component: load('Users/List'), name: 'admin.users.list', meta: { auth: true } }
       ]
     },
     { path: '/login', component: load('Auth/Login'), name: 'login' },

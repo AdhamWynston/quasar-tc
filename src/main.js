@@ -62,6 +62,14 @@ router.beforeEach((to, from, next) => {
   }
   next()
 })
+router.beforeEach((to, from, next) => {
+  if (store.state.auth.check) {
+    if (store.getters.isCoordinator && to.name.startsWith('admin')) {
+      return router.push('/')
+    }
+  }
+  next()
+})
 if (__THEME === 'mat') {
   require('quasar-extras/roboto-font')
 }
