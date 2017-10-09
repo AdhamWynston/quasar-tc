@@ -27,6 +27,7 @@ export default new VueRouter({
       children: [
         { path: '/', component: load('Charts'), name: 'index', meta: { auth: true } },
         { path: '/clients', component: load('Clients/List'), name: 'clients.list', meta: { auth: true } },
+        { path: '/clients/create', component: load('Clients/Create'), name: 'clients.create', meta: { auth: true } },
         {
           path: '/clients/:id',
           component: load('Clients/View'),

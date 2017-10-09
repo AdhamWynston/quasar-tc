@@ -13,6 +13,10 @@
         <q-btn class="primary clear" @click="goTo(selection)"><q-icon name="remove_red_eye"></q-icon>Visualizar Registro</q-btn>
       </template>
     </q-data-table>
+    <q-fixed-position corner="bottom-left" :offset="[16, 16]">
+      <q-btn  @click="goCreate()" round icon="ion-plus-round" color="primary">
+      </q-btn>
+    </q-fixed-position>
   </div>
 </template>
 
@@ -22,6 +26,9 @@
   import moment from 'moment'
   import {
     QIcon,
+    QFixedPosition,
+    QFab,
+    QFabAction,
     QDataTable,
     QField,
     QInput,
@@ -36,6 +43,9 @@
   export default {
     components: {
       QIcon,
+      QFixedPosition,
+      QFab,
+      QFabAction,
       QDataTable,
       QField,
       QInput,
@@ -130,6 +140,9 @@
       }
     },
     methods: {
+      goCreate () {
+        return this.$router.push('/clients/create')
+      },
       goTo (item) {
         let id = item.rows[0].data.id
         return this.$router.push('/clients/' + id)

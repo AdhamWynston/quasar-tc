@@ -21,7 +21,7 @@
                             <q-input v-model="user.username" type="email" float-label="E-mail" />
                         </q-field>
                         <q-field icon="vpn_key">
-                            <q-input v-model="user.password" type="password" float-label="Password" />
+                            <q-input @keyup.enter="submit()" v-model="user.password" type="password" float-label="Password" />
                         </q-field>
                         <q-card-separator />
                         <br>
